@@ -22,11 +22,12 @@ class Model:
         rimanenti = copy.deepcopy(compConnessa)
 
         for c in compConnessa:
-            parziale.append(c)
-            rimanenti.remove(c)
-            self._ricorsione(parziale, rimanenti, soglia, numAnni)
-            parziale.pop()
-            rimanenti.add(c)
+            if len(list(c.results.keys())) >= numAnni:
+                parziale.append(c)
+                rimanenti.remove(c)
+                self._ricorsione(parziale, rimanenti, soglia, numAnni)
+                parziale.pop()
+                rimanenti.add(c)
 
         listOfScores = []
         for c in self._optListCircuiti:
