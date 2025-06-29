@@ -38,7 +38,7 @@ class Model:
         return self._optListCircuiti, self._bestScore, listOfScores
 
     def _ricorsione(self, parziale, rimanenti, soglia, numAnni):
-        if len(parziale) >= soglia:
+        if len(parziale) == soglia:
             #questa fa sia da condizione di ottimalità sia da condizione di terminazione
             if self._getScoreSoluzione(parziale) > self._bestScore:
                 self._bestScore = self._getScoreSoluzione(parziale)
