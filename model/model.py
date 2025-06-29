@@ -68,8 +68,7 @@ class Model:
         #Aggiunta archi non richiede una query perchè abbiamo già importato i risultati
         for i in self._nodes:
             for j in self._nodes:
-                if i.circuitId < j.circuitId:
-                    if self._calcolaPesoArco(i, j) > 0:
+                if i.circuitId < j.circuitId and self._calcolaPesoArco(i, j) > 0:
                         peso = self._calcolaPesoArco(i, j)
                         self._graph.add_edge(i, j, weight=self._calcolaPesoArco(i, j))
 
