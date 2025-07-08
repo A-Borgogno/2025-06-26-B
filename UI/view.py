@@ -26,9 +26,10 @@ class View(ft.UserControl):
         #ROW 1
         self._ddYear1 = ft.Dropdown(label="Year start", width=150)
         self._ddYear2 = ft.Dropdown(label="Year end", width=150)
+        self._controller.fillDDs()
 
         self._btnBuildGraph = ft.ElevatedButton(text="Crea grafo", on_click=self._controller.handleBuildGraph)
-        self._btnPrintDetails = ft.ElevatedButton(text="Stampa dettagli", on_click=self._controller.handlePrintDetails)
+        self._btnPrintDetails = ft.ElevatedButton(text="Stampa dettagli", on_click=self._controller.handlePrintDetails, disabled=True)
         row1 = ft.Row([self._ddYear1, self._ddYear2, self._btnBuildGraph, self._btnPrintDetails],
                       alignment=ft.MainAxisAlignment.CENTER)
         self._page.controls.append(row1)
@@ -40,7 +41,7 @@ class View(ft.UserControl):
         #ROW3
         self._txtInSoglia = ft.TextField(label="Soglia", width=200)
         self._txtInNumDiEdizioni = ft.TextField(label="Num di Edizioni", width=200)
-        self._btnCalcolaSoluzione = ft.ElevatedButton(text="Cerca Dream Championship", on_click=self._controller.handleCercaDreamChampionship)
+        self._btnCalcolaSoluzione = ft.ElevatedButton(text="Cerca Dream Championship", on_click=self._controller.handleCercaDreamChampionship, disabled=True)
 
         row3 = ft.Row([self._txtInSoglia, self._txtInNumDiEdizioni, self._btnCalcolaSoluzione],
                       alignment=ft.MainAxisAlignment.CENTER)
