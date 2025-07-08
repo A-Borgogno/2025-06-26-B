@@ -44,7 +44,7 @@ class DAO():
         query = """select r2.`year`, r2.raceId, r.driverId, r.`time` 
                     from results r, races r2 
                     where r.raceId = r2.raceId 
-                    and r2.`year` between %s and %s
+                    and r2.`year` > %s and r2.`year` < %s
                     and r2.circuitId = %s"""
         cursor.execute(query, (year1, year2, circuitId))
 

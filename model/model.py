@@ -42,7 +42,7 @@ class Model:
     def _calcolaPesoArco(self, u:Circuit, v:Circuit):
         peso = 0
 
-        if len(u.risultati.values()) == 0 or len(v.risultati.values()) == 0:
+        if len(u.risultati.keys()) == 0 or len(v.risultati.keys()) == 0:
             return peso
 
         for year in u.risultati.keys():
