@@ -42,6 +42,7 @@ class Controller:
 
     def handlePrintDetails(self, e):
         self._view._txtGraphDetails.controls.clear()
+        self._view._txtGraphDetails.controls.append(ft.Text("Stampo dettagli"))
         componenteConnessa = self._model.getComponenteConnessa()
         for c in componenteConnessa:
             self._view._txtGraphDetails.controls.append(ft.Text(f"{c} -- {self._model.getPesoMinimo(c)}"))
