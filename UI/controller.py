@@ -50,5 +50,28 @@ class Controller:
 
 
     def handleCercaDreamChampionship(self, e):
-        pass
+        self._view._txt_result.controls.clear()
+        K = self._view._txtInSoglia.value
+        if K == "":
+            self._view._txt_result.controls.append(ft.Text("Inserire il numero di gare K", color="red"))
+            self._view.update_page()
+            return
+        M = self._view._txtInNumDiEdizioni.value
+        if M == "":
+            self._view._txt_result.controls.append(ft.Text("Inserire il numero minimo di edizioni M", color="red"))
+            self._view.update_page()
+            return
+        try:
+            intK = int(K)
+            intM = int(M)
+        except ValueError:
+            self._view._txt_result.controls.append(ft.Text("I valori di K e M devono essere degli interi", color="red"))
+            self._view.update_page()
+            return
+        circuiti, score = self._model.getBestCampionato(intK, intM)
+        self._view._txt_result.controls.append(ft.Text(f"Trovato miglior campionato con {len(circuiti)} gare e almeno {intM} edizioni"))
+        for c in circuiti:
+            self._view._txt_result.controls.append(ft.Text(c))
+        self._view._txt_result.controls.append(ft.Text(f"Indice di imprevedibilità = {score}"))
+        self._view.update_page()
 

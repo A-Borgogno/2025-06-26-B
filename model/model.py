@@ -1,3 +1,5 @@
+import copy
+
 import networkx as nx
 
 from database.DAO import DAO
@@ -8,6 +10,8 @@ class Model:
     def __init__(self):
         self._graph = nx.Graph()
         self._idMap = {}
+        self._bestSol = []
+        self._maxScore = 0
 
     def getYears(self):
         return DAO.getYears()
@@ -66,3 +70,41 @@ class Model:
             if edge[2]["weight"] < pesoMinimo:
                 pesoMinimo = edge[2]["weight"]
         return pesoMinimo
+
+
+    def getBestCampionato(self, K, M):
+        self._bestSol = []
+        self._maxScore = 0
+
+        circuiti = self.getComponenteConnessa()
+        for c in circuiti:
+            if len(c.risultati.keys()) >= M:
+                self._ricorsione([c], circuiti, K, M)
+
+        return self._bestSol, self._maxScore
+
+    def _ricorsione(self, parziale, circuiti, K, M):
+        if len(parziale) == K:
+            if (score:=self._calcolaScore(parziale)) > self._maxScore:
+                self._bestSol = copy.deepcopy(parziale)
+                self._maxScore = score
+        else:
+            for c in circuiti:
+                if c not in parziale:
+                    if len(c.risultati.keys()) >= M:
+                        parziale.append(c)
+                        self._ricorsione(parziale, circuiti, K, M)
+                        parziale.pop()
+
+    def _calcolaScore(self, soluzione):
+        score = 0
+        for c in soluzione:
+            nP = 0
+            nPtot = 0
+            for year in c.risultati.keys():
+                for p in c.risultati[year]:
+                    nPtot += 1
+                    if p.time:
+                        nP += 1
+            score += 1 - nP/nPtot
+        return score
